@@ -1,0 +1,45 @@
+﻿@model IEnumerable<InAndOut.Models.Expense>
+@{
+    ViewData["Title"] = "Expense Home";
+}
+<div class="container p-3" style="display:flex;justify-content:space-between">
+    <h2 class="text-primary" >My Expenses</h2>
+    <div>
+        <a role="button" class="btn btn-primary" asp-for="Expense" asp-controller="Expense" asp-action="ExpenseCreate">Add Expense</a>
+    </div>
+</div>
+<div class="container">
+    @if (@Model.Count() > 0)
+    {
+       <table class="table fl">
+        <thead>
+            <tr>
+                <th class="w-20 p-3" scope="col">Id</th>
+                <th class="w-20 p-3" scope="col">ExpenseName</th>
+                <th class="w-20 p-3" scope="col">Amount</th>
+                <th class="w-10 p-3" scope="col"></th>
+                <th class="w-10 p-3" scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var expense in Model)
+            {
+             <tr>
+                <td class="w-20 p-3" scope="col">@expense.Id</td>
+                <td class="w-20 p-3" scope="col">@expense.ExpenseName</td>
+                <td class="w-20 p-3" scope="col">@expense.Amount</td>
+                <td class="w-10" scope="col">
+                     <a role="button" class="btn btn-info" asp-for="Expense" asp-controller="Expense" asp-action="ExpenseUpdate" asp-route-Id="@expense.Id">Update</a>
+                </td>
+                <td class="w-10" scope="col">
+                     <a role="button" class="btn btn-danger" asp-for="Expense" asp-controller="Expense" asp-action="ExpenseDelete" asp-route-Id="@expense.Id">Delete</a>
+                </td>
+            </tr>
+            }
+            
+        </tbody>
+        </table>
+    }
+
+</div>
+

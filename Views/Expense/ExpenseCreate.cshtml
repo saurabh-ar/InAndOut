@@ -1,0 +1,34 @@
+﻿@model InAndOut.Models.Expense;
+@{
+    ViewData["Title"] = "ExpenseCreate";
+}
+
+<h1>Expense Create</h1>
+
+<div class="container p-3 col-8">
+
+    <form method="post" asp-action="ExpenseCreate">
+        @*/asp-validation-summary="ModelOnly" will not display Model Errors, just the errorwhat comes from Controller" *@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ExpenseName"></label>
+            <input  asp-for="ExpenseName" placeholder="Enter Text" class="form-control" />
+            <span asp-validation-for="ExpenseName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Amount"></label>
+            <input asp-for="Amount" placeholder="Enter Text" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Expense</button>
+             <button asp-action="ExpenseHome" asp-controller="Expense" class="btn btn-danger">Back</button>
+        </div>
+
+    </form>
+</div>
+
+@*Client side Validation using _ValidationScriptsPartial which comes by default*@
+@section Scripts{
+    @{<partial name = "_ValidationScriptsPartial"/>}
+}

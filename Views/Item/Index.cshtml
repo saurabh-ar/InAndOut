@@ -1,0 +1,42 @@
+﻿@model IEnumerable<InAndOut.Models.Item>
+
+
+<div class="container w-100 p-3 " style="display:flex;justify-content:space-between">
+    <h2 class="text-primary">Borrowed Items</h2>
+    <div>
+    <a class="btn btn-primary" asp-controller="Item" asp-action="Create" role="button">Create a new Item</a>
+@*    <a class="btn btn-primary" asp-controller="Item" asp-action="Edit" role="button">Edit Item</a>*@
+    </div>
+</div>
+
+
+<div class="container w-100">
+    @if (Model.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="w-20 p-3" scope="col">Id</th>
+                    <th class="w-20 p-3" scope="col">ItemName</th>
+                    <th class="w-20 p-3" scope="col">Borrower</th>
+                    <th class="w-20 p-3" scope="col">Lender</th>
+@*                    <th class="w-20 p-3" scope="col">Edit</th>*@
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="w-25 p-3">@item.Id</td>
+                        <td class="w-25 p-3">@item.ItemName</td>
+                        <td class="w-25 p-3">@item.Borrower</td>
+                        <td class="w-25 p-3">@item.Lender</td>
+ @*                       <td class="w-25 p-3"><a class="btn btn-primary" asp-controller="Item" asp-action="Edit" role="button">Edit Item</a></td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
