@@ -6,6 +6,8 @@ namespace InAndOut.Models
     {
         [Key]
         public int Id { get; set; } 
+
+        [Required]
         public string ExpenseCategoryName { get; set; }    
     }
 }
