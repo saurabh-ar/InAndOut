@@ -1,0 +1,31 @@
+﻿@model InAndOut.Models.ExpenseCategory;
+@{
+    ViewData["Title"] = "Expense Category Delete";
+}
+
+<h1>Expense Category Delete</h1>
+
+<div class="container p-3 col-8">
+
+    <form method="post" asp-action="ExpenseCategoryDeletePost">
+        <input asp-for="Id" hidden />
+        @*/asp-validation-summary="ModelOnly" will not display Model Errors, just the errorwhat comes from Controller" *@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ExpenseCategoryName"></label>
+            <input  disabled asp-for="ExpenseCategoryName" value="@Model.ExpenseCategoryName" class="form-control" />
+            
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Delete Expense Category</button>
+             <button asp-action="ExpenseCategoryHome" asp-controller="ExpenseCategory" class="btn btn-info">Back</button>
+        </div>
+
+    </form>
+</div>
+
+@*Client side Validation using _ValidationScriptsPartial which comes by default*@
+@section Scripts{
+    @{<partial name = "_ValidationScriptsPartial"/>}
+}

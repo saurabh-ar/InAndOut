@@ -1,0 +1,24 @@
+﻿@model InAndOut.Models.ExpenseCategory
+@{
+    ViewData["Title"] = "ExpenseCategoryCreate";
+}
+<h1>Expense Category Create</h1>
+<div class="container">
+    <form method="post" asp-action="ExpenseCategoryCreate">
+         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+           <label asp-for="ExpenseCategoryName"></label>
+            <input asp-for="ExpenseCategoryName" placeholder="Enter Text" class="form-control" />
+            <span asp-validation-for="ExpenseCategoryName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Expense Category</button>
+             <button asp-action="ExpenseCategoryHome" asp-controller="ExpenseCategory" class="btn btn-danger">Back</button>
+        </div>
+
+    </form>
+
+</div>
+
+
