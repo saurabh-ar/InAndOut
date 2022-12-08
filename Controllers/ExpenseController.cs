@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using InAndOut.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+
 namespace InAndOut.Controllers
 {
     public class ExpenseController : Controller
@@ -12,24 +15,55 @@ namespace InAndOut.Controllers
         }
         public IActionResult ExpenseHome()
         {
-            IEnumerable<Expense> expenseList = _db.Expenses;
-            return View(expenseList);
+            IEnumerable<Expense> objList = _db.Expenses;
+
+            //Asscoiciate Each 'Expense' we are attaching an Expense Category
+
+            foreach(var obj in objList)
+            {
+                obj.ExpenseCategory = _db.ExpenseCategories.FirstOrDefault(u => u.Id == obj.ExpenseCategoryId);
+            }
+
+
+            return View(objList);
         }
 
         // GET : CREATE
         public IActionResult ExpenseCreate()
         {
-            return View();
+            /* w/o Expense View Model */
+
+            //IEnumerable<SelectListItem> TypeDropdown = _db.ExpenseCategories.Select(i => new SelectListItem
+            //{
+            //    Text = i.ExpenseCategoryName,
+            //    Value = i.Id.ToString()
+            //}); 
+
+            //ViewBag.TypeDropdown = TypeDropdown;
+
+            /***************************/
+
+            VM_Expense vM_Expense = new VM_Expense()
+            {
+                Expense = new Expense(),
+                TypeDropDown = _db.ExpenseCategories.Select(i => new SelectListItem
+                {
+                    Text = i.ExpenseCategoryName,
+                    Value = i.Id.ToString()
+                })
+            };
+
+            return View(vM_Expense);
         }
 
         // POST : CREATE
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult ExpenseCreate(Expense obj)
+        public IActionResult ExpenseCreate(VM_Expense obj)
         {
             if (ModelState.IsValid)
             {
-                _db.Expenses.Add(obj);
+                _db.Expenses.Add(obj.Expense);
                 _db.SaveChanges();
                 return RedirectToAction("ExpenseHome");
             }

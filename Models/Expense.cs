@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InAndOut.Models
 {
@@ -14,5 +15,12 @@ namespace InAndOut.Models
         [Required]
         [Range(1,int.MaxValue,ErrorMessage ="Amount cannot be ZERO!")]
         public int Amount { get; set; }
+
+        [DisplayName("Expense Category")]
+        public int ExpenseCategoryId { get; set; }
+        [ForeignKey("ExpenseCategoryId")]
+
+        [DisplayName("Expense Category")]
+        public virtual ExpenseCategory ExpenseCategory { get; set;}
     }
 }
