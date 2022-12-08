@@ -118,22 +118,31 @@ namespace InAndOut.Controllers
                 ModelState.AddModelError("", "No Entry Found to Delete");
                 return NotFound();
             }
+            VM_Expense vM_Expense = new VM_Expense()
+            {
+                Expense = new Expense(),
+                TypeDropDown = _db.ExpenseCategories.Select(i => new SelectListItem
+                {
+                    Text = i.ExpenseCategoryName,
+                    Value = i.Id.ToString()
+                })
+            };
+            vM_Expense.Expense = _db.Expenses.Find(id);
 
-            Expense obj = _db.Expenses.Find(id);
-            if (obj == null)
+            if (vM_Expense == null)
                 return NotFound();
 
-            return View(obj);
+            return View(vM_Expense);
         }
 
         //POST : Update
 
-        public IActionResult ExpenseUpdatePost(Expense obj)
+        public IActionResult ExpenseUpdatePost(VM_Expense obj)
         {
             if (obj == null)
                 return NotFound();
 
-            _db.Expenses.Update(obj);
+            _db.Expenses.Update(obj.Expense);
             _db.SaveChanges();
             return RedirectToAction("ExpenseHome");
         }
